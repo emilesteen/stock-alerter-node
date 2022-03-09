@@ -17,17 +17,13 @@ export class App {
 
     private async runAndSleep() {
         await this.run()
-        await this.sleepFor(5)
+        await this.sleepFor(10)
     }
 
     async run() {
         console.log("Checking if product is in stock and alerting if needed for each supplier...")
 
-        await this.checkIfProductIsInStockAndAlertIfNeededForEachSupplier()
-    }
-
-    private async checkIfProductIsInStockAndAlertIfNeededForEachSupplier() {
-        this.suppliers.forEach((supplier: Supplier) => supplier.checkIfProductIsInStockAndAlertIfNeeded())
+        this.suppliers.forEach((supplier: Supplier) => supplier.findProductsInStockAndAlertForEachProduct())
     }
 
     private async sleepFor(timeInSeconds: number) {

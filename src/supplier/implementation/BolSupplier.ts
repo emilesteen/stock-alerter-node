@@ -1,26 +1,22 @@
 import {Supplier} from "../Supplier";
 import {Alerter} from "../../alerter/Alerter";
 import axios from "axios";
+import {Product} from "../../domain/product";
 
 export class BolSupplier extends Supplier {
-    name: String = "bol.com"
-
-    static readonly DIGITAl_EDITION_URL = "https://www.bol.com/nl/nl/p/sony-playstation-5-all-digital-console/9300000004162392/"
-    static readonly DISC_EDITION_URL = "https://www.bol.com/nl/nl/p/sony-playstation-5-console/9300000004162282/"
+    name: string = "bol.com"
 
     constructor(alerter: Alerter) {
         super(alerter)
     }
 
-    checkIfDigitalEditionIsInStock(): Promise<boolean> {
-        axios.get(BolSupplier.DIGITAl_EDITION_URL)
-
-        return Promise.resolve(true)
-    }
-
-    checkIfDiscEditionIsInStock(): Promise<boolean> {
-        axios.get(BolSupplier.DISC_EDITION_URL)
-
-        return Promise.resolve(true)
+    findProductsInStock(): Promise<Product[]> {
+        return Promise.resolve([
+            new Product(
+                "Sony Playstation 5 Console",
+                "https://www.bol.com/nl/nl/p/sony-playstation-5-console/9300000004162282/?ruleRedirect=1&sI=playstation%205&variants=",
+                this.name
+            )
+        ]);
     }
 }

@@ -1,7 +1,8 @@
 import {Alerter} from "../alerter/Alerter";
+import {Product} from "../domain/product";
 
 export abstract class Supplier {
-    abstract name: String
+    abstract name: string
 
     alerter: Alerter
 
@@ -9,22 +10,11 @@ export abstract class Supplier {
         this.alerter = alerter
     }
 
-    checkIfProductIsInStockAndAlertIfNeeded() {
-        this.checkIfProductIsInStock().then(
-            (isProductInStock: boolean) => isProductInStock ? this.alerter.alert(this.name) : null
+    findProductsInStockAndAlertForEachProduct() {
+        this.findProductsInStock().then(
+            (products: Product[]) => products.forEach((product: Product) => { this.alerter.alert(product) })
         )
     }
 
-    checkIfProductIsInStock(): Promise<boolean> {
-        const promises = Promise.all([
-            this.checkIfDigitalEditionIsInStock(),
-            this.checkIfDiscEditionIsInStock()
-        ])
-
-        return promises.then((results: boolean[]) => results.filter((result) => result).length > 0)
-    }
-
-    abstract checkIfDigitalEditionIsInStock(): Promise<boolean>
-
-    abstract checkIfDiscEditionIsInStock(): Promise<boolean>
+    abstract findProductsInStock(): Promise<Product[]>
 }

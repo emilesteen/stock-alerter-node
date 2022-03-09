@@ -1,7 +1,8 @@
 import {Alerter} from "../Alerter";
+import {Product} from "../../domain/product";
 
 export class MockAlerter extends Alerter {
-    alert(supplierName: String) {
-        console.log(`The product is in stock with supplier ${supplierName}`)
+    alert(product: Product) {
+        console.log(`${product.name} is in stock at ${product.supplierName}\n\n${product.url}`)
     }
 }
