@@ -2,9 +2,11 @@ import {Supplier} from "./supplier/Supplier";
 
 export class App {
     suppliers: Supplier[]
+    sleepDurationInSeconds: number
 
-    constructor(suppliers: Supplier[]) {
+    constructor(suppliers: Supplier[], sleepDurationInSeconds: number) {
         this.suppliers = suppliers
+        this.sleepDurationInSeconds = sleepDurationInSeconds
     }
 
     async start() {
@@ -17,12 +19,12 @@ export class App {
 
     private async runAndSleep() {
         await this.run()
-        await this.sleepFor(30)
+        await this.sleepFor(this.sleepDurationInSeconds)
     }
 
     async run() {
         try {
-            console.log("Checking if product is in stock and alerting if needed for each supplier...")
+            console.log("Finding all products in stock...")
 
             this.suppliers.forEach((supplier: Supplier) => supplier.findProductsInStockAndAlertForEachProduct())
         } catch (error: any) {

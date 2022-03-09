@@ -5,11 +5,10 @@ import axios from "axios";
 export class MediaMarktSupplier extends Supplier {
     name = "MediaMarkt";
 
-    private readonly LISTING_PAGE_MOCK_URL = "https://www.mediamarkt.nl/nl/category/_nintendo-consoles-670536.html"
     private readonly LISTING_PAGE_URL = "https://www.mediamarkt.nl/nl/category/_playstation-5-consoles-766027.html?langId=-11"
 
     findProductsInStock(): Promise<Product[]> {
-        return axios.get(this.LISTING_PAGE_MOCK_URL).then(
+        return axios.get(this.LISTING_PAGE_URL).then(
             response => {
                 const products: Product[] = []
 

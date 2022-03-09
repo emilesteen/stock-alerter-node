@@ -1,4 +1,4 @@
-import {MediaMarktSupplier} from "../src/supplier/implementation/MediaMarktSupplier";
 import {MockAlerter} from "../src/alerter/implementation/MockAlerter";
+import {MockSupplier} from "../src/supplier/implementation/MockSupplier";
 
-new MediaMarktSupplier(new MockAlerter()).findProductsInStockAndAlertForEachProduct()
+new MockSupplier(new MockAlerter()).findProductsInStockAndAlertForEachProduct()
