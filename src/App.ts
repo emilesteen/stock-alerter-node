@@ -1,19 +1,10 @@
 import {Supplier} from "./supplier/Supplier";
-import {BolSupplier} from "./supplier/implementation/BolSupplier";
-import {MockAlerter} from "./alerter/implementation/MockAlerter";
-import {Alerter} from "./alerter/Alerter";
 
 export class App {
-    suppliers: Supplier[] = App.determineSuppliers(App.determineAlerter())
+    suppliers: Supplier[]
 
-    private static determineAlerter(): Alerter {
-        return new MockAlerter()
-    }
-
-    private static determineSuppliers(alerter: Alerter): Supplier[] {
-        return [
-            new BolSupplier(alerter)
-        ]
+    constructor(suppliers: Supplier[]) {
+        this.suppliers = suppliers
     }
 
     async start() {
