@@ -14,7 +14,7 @@ export class SlackAlerter extends Alerter {
     alert(product: Product): any {
         axios.post(
             this.hookUrl,
-            {"text": `${product.name} is in stock at ${product.supplierName}\n\n${product.url}`}
+            {"text": `${product.name} is in stock at ${product.supplierName} for €${product.price}\n\n${product.url}`}
         ).then()
     }
 }

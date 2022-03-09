@@ -4,9 +4,10 @@ import {Product} from "../domain/product";
 export abstract class Supplier {
     abstract name: string
 
+    cheerio = require('cheerio');
     alerter: Alerter
 
-    protected constructor(alerter: Alerter) {
+    constructor(alerter: Alerter) {
         this.alerter = alerter
     }
 

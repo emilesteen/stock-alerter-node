@@ -1,17 +1,29 @@
 import {App} from "./App";
-import {Supplier} from "./supplier/Supplier";
 import {Alerter} from "./alerter/Alerter";
-import {BolSupplier} from "./supplier/implementation/BolSupplier";
 import {SlackAlerter} from "./alerter/implementation/SlackAlerter";
+import {Supplier} from "./supplier/Supplier";
+import {MediaMarktSupplier} from "./supplier/implementation/MediaMarktSupplier";
 
-const dotenv = require('dotenv')
-dotenv.config()
+function setUp() {
+    const dotenv = require('dotenv')
+    dotenv.config()
+}
 
-const hookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
+function generateAlerter(): Alerter {
+    const hookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
 
-const alerter: Alerter = new SlackAlerter(hookUrl)
-const suppliers: Supplier[] = [
-    new BolSupplier(alerter)
-]
+    return  new SlackAlerter(hookUrl)
+}
+
+function generateSuppliers(alerter: Alerter): Supplier[] {
+    return [
+        new MediaMarktSupplier(alerter)
+    ]
+}
+
+setUp()
+
+const alerter = generateAlerter()
+const suppliers = generateSuppliers(alerter)
 
 new App(suppliers).start().then()
