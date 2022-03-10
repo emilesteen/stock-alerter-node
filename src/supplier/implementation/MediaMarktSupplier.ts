@@ -1,5 +1,5 @@
 import {Supplier} from "../Supplier";
-import {Product} from "../../domain/product";
+import {Product} from "../../domain/Product";
 import axios from "axios";
 
 export class MediaMarktSupplier extends Supplier {

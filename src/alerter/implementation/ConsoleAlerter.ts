@@ -1,5 +1,5 @@
 import {Alerter} from "../Alerter";
-import {Product} from "../../domain/product";
+import {Product} from "../../domain/Product";
 
 export class ConsoleAlerter extends Alerter {
     alert(product: Product) {

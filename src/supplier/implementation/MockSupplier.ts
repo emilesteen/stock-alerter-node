@@ -1,7 +1,7 @@
 import {Supplier} from "../Supplier";
 import {Alerter} from "../../alerter/Alerter";
 import axios from "axios";
-import {Product} from "../../domain/product";
+import {Product} from "../../domain/Product";
 
 export class MockSupplier extends Supplier {
     name: string = "bol.com"

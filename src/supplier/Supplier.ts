@@ -1,4 +1,4 @@
-import {Product} from "../domain/product";
+import {Product} from "../domain/Product";
 
 export abstract class Supplier {
     abstract name: string
