@@ -9,17 +9,18 @@ function setUp() {
     dotenv.config()
 }
 
+function generateSuppliers(): Supplier[] {
+    return [
+        new MediaMarktSupplier()
+    ]
+}
+
 function generateAlerter(): Alerter {
     const hookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
 
     return  new SlackAlerter(hookUrl)
 }
 
-function generateSuppliers(alerter: Alerter): Supplier[] {
-    return [
-        new MediaMarktSupplier(alerter)
-    ]
-}
 
 function determineSleepTimeInSeconds(): number {
     return parseInt(process.env["SLEEP_DURATION_IN_SECONDS"] ? process.env["SLEEP_DURATION_IN_SECONDS"] : "")
@@ -27,8 +28,8 @@ function determineSleepTimeInSeconds(): number {
 
 setUp()
 
+const suppliers = generateSuppliers()
 const alerter = generateAlerter()
-const suppliers = generateSuppliers(alerter)
 const sleepTimeInSeconds = determineSleepTimeInSeconds()
 
-new App(suppliers, sleepTimeInSeconds).start().then()
+new App(suppliers, alerter, sleepTimeInSeconds).start().then()

@@ -6,10 +6,6 @@ import {Product} from "../../domain/product";
 export class MockSupplier extends Supplier {
     name: string = "bol.com"
 
-    constructor(alerter: Alerter) {
-        super(alerter)
-    }
-
     findProductsInStock(): Promise<Product[]> {
         return Promise.resolve([
             new Product(

@@ -1,11 +1,15 @@
 import {Supplier} from "./supplier/Supplier";
+import {Alerter} from "./alerter/Alerter";
+import {Product} from "./domain/product";
 
 export class App {
     suppliers: Supplier[]
+    alerter: Alerter
     sleepDurationInSeconds: number
 
-    constructor(suppliers: Supplier[], sleepDurationInSeconds: number) {
+    constructor(suppliers: Supplier[], alerter: Alerter, sleepDurationInSeconds: number) {
         this.suppliers = suppliers
+        this.alerter = alerter
         this.sleepDurationInSeconds = sleepDurationInSeconds
     }
 
@@ -26,7 +30,13 @@ export class App {
         try {
             console.log("Finding all products in stock...")
 
-            this.suppliers.forEach((supplier: Supplier) => supplier.findProductsInStockAndAlertForEachProduct())
+            this.suppliers.forEach(
+                (supplier: Supplier) => {
+                    supplier.findProductsInStock().then(
+                        (products: Product[]) => products.forEach((product: Product) => this.alerter.alert(product) )
+                    )
+                }
+            )
         } catch (error: any) {
             console.error(error)
         }
