@@ -1,5 +1,6 @@
 import {Supplier} from "./supplier/Supplier";
 import {Alerter} from "./alerter/Alerter";
+import {Product} from "./domain/Product";
 
 export class App {
     suppliers: Supplier[]

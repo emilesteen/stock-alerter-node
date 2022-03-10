@@ -3,9 +3,8 @@ import {Product} from "../../domain/Product";
 import axios from "axios";
 
 export class MediaMarktSupplier extends Supplier {
-    name = "MediaMarkt";
-
     private readonly LISTING_PAGE_URL = "https://www.mediamarkt.nl/nl/category/_playstation-5-consoles-766027.html?langId=-11"
+    private readonly NAME = "MediaMarkt"
 
     findProductsInStock(): Promise<Product[]> {
         return axios.get(this.LISTING_PAGE_URL).then(
@@ -31,7 +30,7 @@ export class MediaMarktSupplier extends Supplier {
                                     name,
                                     price,
                                     this.LISTING_PAGE_URL,
-                                    this.name
+                                    this.NAME
                                 )
                             )
                         }
