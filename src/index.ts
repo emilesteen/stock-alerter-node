@@ -24,10 +24,12 @@ function generateSuppliers(): Supplier[] {
     ]
 }
 
-function generateAlerter(): Alerter {
-    const hookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
+function generateAlerters(): Alerter[] {
+    const slackHookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
 
-    return  new SlackAlerter(hookUrl)
+    return [
+        new SlackAlerter(slackHookUrl)
+    ]
 }
 
 
@@ -38,7 +40,7 @@ function determineSleepTimeInSeconds(): number {
 setUp()
 
 const suppliers = generateSuppliers()
-const alerter = generateAlerter()
+const alerter = generateAlerters()
 const sleepTimeInSeconds = determineSleepTimeInSeconds()
 
 new App(suppliers, alerter, sleepTimeInSeconds).start().then()
