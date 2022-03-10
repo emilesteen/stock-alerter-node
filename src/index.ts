@@ -5,8 +5,17 @@ import {Supplier} from "./supplier/Supplier";
 import {MediaMarktSupplier} from "./supplier/implementation/MediaMarktSupplier";
 
 function setUp() {
+    setUpDotenv()
+    setUpTimeStampLogging()
+}
+
+function setUpDotenv() {
     const dotenv = require('dotenv')
     dotenv.config()
+}
+
+function setUpTimeStampLogging() {
+    require('log-timestamp');
 }
 
 function generateSuppliers(): Supplier[] {
