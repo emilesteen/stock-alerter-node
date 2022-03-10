@@ -31,11 +31,11 @@ export class App {
             console.log("Finding all products in stock...")
 
             this.suppliers.forEach(
-                (supplier: Supplier) => {
-                    supplier.findProductsInStock().then(
-                        (products: Product[]) => products.forEach((product: Product) => this.alerter.alert(product) )
+                (supplier: Supplier) => supplier.findProductsInStock().then(
+                    (products: Product[]) => products.forEach(
+                        (product: Product) => this.alerter.alert(product)
                     )
-                }
+                )
             )
         } catch (error: any) {
             console.error(error)
