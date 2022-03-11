@@ -46,6 +46,12 @@ export class CoolblueSupplier extends Supplier {
 
                 return products
             }
+        ).catch(
+            error => {
+                console.error(error)
+
+                return []
+            }
         )
     }
 }

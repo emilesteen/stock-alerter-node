@@ -36,6 +36,12 @@ export class MediaMarktSupplier extends Supplier {
 
                 return products
             }
+        ).catch(
+            error => {
+                console.error(error)
+
+                return []
+            }
         )
     }
 }
