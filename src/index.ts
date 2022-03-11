@@ -28,13 +28,12 @@ function generateAlerters(): Alerter[] {
     const slackHookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
 
     return [
-        new SlackAlerter(slackHookUrl)
+        new SlackAlerter(slackHookUrl),
     ]
 }
 
-
 function determineSleepTimeInSeconds(): number {
-    return parseInt(process.env["SLEEP_DURATION_IN_SECONDS"] ? process.env["SLEEP_DURATION_IN_SECONDS"] : "")
+    return parseInt(process.env["SLEEP_DURATION_IN_SECONDS"] ? process.env["SLEEP_DURATION_IN_SECONDS"] : "10")
 }
 
 setUp()

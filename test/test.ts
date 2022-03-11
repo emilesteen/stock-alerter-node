@@ -5,4 +5,4 @@ import {CoolblueSupplier} from "../src/supplier/implementation/CoolblueSupplier"
 
 require('log-timestamp');
 
-new App([new CoolblueSupplier()], [new ConsoleAlerter()], 1).run().then()
+new App([new CoolblueSupplier()], [new ConsoleAlerter()], 3).run().then()

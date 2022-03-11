@@ -18,6 +18,8 @@ export class CoolblueSupplier extends Supplier {
                 const products: Product[] = []
 
                 const $ = this.cheerio.load(response.data)
+                const productResults = $('div[id=product-results]')
+                const children = productResults.children()[0]
 
                 return products
             }
