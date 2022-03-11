@@ -6,4 +6,4 @@ import {MediaMarktSupplier} from "../src/supplier/implementation/MediaMarktSuppl
 
 require('log-timestamp');
 
-new App([new CoolblueSupplier()], [new ConsoleAlerter()], 3).run().then()
+new App([new MockSupplier()], [new ConsoleAlerter()], 3).start().then()

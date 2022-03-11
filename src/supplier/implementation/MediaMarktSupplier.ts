@@ -3,11 +3,12 @@ import {Product} from "../../domain/Product";
 import axios from "axios";
 
 export class MediaMarktSupplier extends Supplier {
-    private readonly LISTING_PAGE_URL = "https://www.mediamarkt.nl/nl/category/_playstation-5-consoles-766027.html?langId=-11"
+    private readonly URL = "https://www.mediamarkt.nl"
+    private readonly LISTING_ENDPOINT = "/nl/category/_playstation-5-consoles-766027.html"
     private readonly NAME = "MediaMarkt"
 
     findProductsInStock(): Promise<Product[]> {
-        return axios.get(this.LISTING_PAGE_URL).then(
+        return axios.get(`${this.URL}${this.LISTING_ENDPOINT}`).then(
             response => {
                 const products: Product[] = []
 
@@ -20,14 +21,16 @@ export class MediaMarktSupplier extends Supplier {
                     const isInStock = child.children[2]?.children[3]?.children[1]?.children[3]?.children[3]?.attribs["content"] !== "OutOfStock"
 
                     if (isInStock) {
-                        const price = child.children[2]?.children[3]?.children[1]?.children[1]?.children[1]?.children[0]?.data
                         const name = child.children[2]?.children[5]?.children[3]?.children[1]?.children[0]?.data?.trim()
+                        const price = child.children[2]?.children[3]?.children[1]?.children[1]?.children[1]?.children[0]?.data
+                        const endpoint = child.children[2]?.children[5]?.children[3]?.children[1]?.attribs?.href
+                        const url = `${this.URL}${endpoint}`
 
                         products.push(
                             new Product(
                                 name,
                                 price,
-                                this.LISTING_PAGE_URL,
+                                url,
                                 this.NAME
                             )
                         )
