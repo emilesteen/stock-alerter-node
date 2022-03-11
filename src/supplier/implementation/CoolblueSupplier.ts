@@ -3,7 +3,8 @@ import {Product} from "../../domain/Product";
 import axios, {AxiosRequestConfig} from "axios";
 
 export class CoolblueSupplier extends Supplier {
-    private readonly LISTING_PAGE_URL = "https://www.coolblue.nl/en/consoles/playstation5"
+    private readonly URL = "https://www.coolblue.nl"
+    private readonly LISTING_ENDPOINT = "/en/consoles/playstation5"
     private readonly NAME = "Coolblue"
 
     findProductsInStock(): Promise<Product[]> {
@@ -13,13 +14,35 @@ export class CoolblueSupplier extends Supplier {
             }
         }
 
-        return axios.get(this.LISTING_PAGE_URL, config).then(
+        return axios.get(`${this.URL}${this.LISTING_ENDPOINT}`, config).then(
             response => {
                 const products: Product[] = []
 
                 const $ = this.cheerio.load(response.data)
                 const productResults = $('div[id=product-results]')
-                const children = productResults.children()[0]
+                const children = productResults.children()[0].children
+
+                for (let i = 1; i < children.length; i = i + 2) {
+                    const child = children[i].children[1]
+                    const button = child.children[1]?.children[3]?.children[9]?.children[1]?.children[3]?.children[1]
+                    const isUnavailable = button?.children[3]?.attribs?.class === "color--unavailable"
+
+                    if (button && !isUnavailable) {
+                        const name = child.children[1]?.children[3]?.children[3]?.children[1]?.children[1]?.children[1]?.children[0]?.data
+                        const price = child.children[1]?.children[3]?.children[9]?.children[1]?.children[1]?.children[0]?.children[0]?.data
+                        const endpoint = child.children[1]?.children[3]?.children[3]?.children[1]?.children[1]?.children[1]?.attribs?.href
+                        const url = `${this.URL}${endpoint}`
+
+                        products.push(
+                            new Product(
+                                name,
+                                price,
+                                url,
+                                this.NAME
+                            )
+                        )
+                    }
+                }
 
                 return products
             }

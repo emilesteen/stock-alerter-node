@@ -3,6 +3,8 @@ import {Alerter} from "./alerter/Alerter";
 import {SlackAlerter} from "./alerter/implementation/SlackAlerter";
 import {Supplier} from "./supplier/Supplier";
 import {MediaMarktSupplier} from "./supplier/implementation/MediaMarktSupplier";
+import {CoolblueSupplier} from "./supplier/implementation/CoolblueSupplier";
+import {ConsoleAlerter} from "./alerter/implementation/ConsoleAlerter";
 
 function setUp() {
     setUpDotenv()
@@ -20,7 +22,8 @@ function setUpTimeStampLogging() {
 
 function generateSuppliers(): Supplier[] {
     return [
-        new MediaMarktSupplier()
+        new MediaMarktSupplier(),
+        new CoolblueSupplier()
     ]
 }
 
@@ -28,7 +31,8 @@ function generateAlerters(): Alerter[] {
     const slackHookUrl: string = process.env["SLACK_HOOK_URL"] ? process.env["SLACK_HOOK_URL"] : ""
 
     return [
-        new SlackAlerter(slackHookUrl),
+        new ConsoleAlerter(),
+        new SlackAlerter(slackHookUrl)
     ]
 }
 
