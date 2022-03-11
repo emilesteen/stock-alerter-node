@@ -43,7 +43,7 @@ function determineSleepTimeInSeconds(): number {
 setUp()
 
 const suppliers = generateSuppliers()
-const alerter = generateAlerters()
+const alerters = generateAlerters()
 const sleepTimeInSeconds = determineSleepTimeInSeconds()
 
-new App(suppliers, alerter, sleepTimeInSeconds).start().then()
+new App(suppliers, alerters, sleepTimeInSeconds).start().then()
