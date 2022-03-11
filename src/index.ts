@@ -36,7 +36,7 @@ function generateAlerters(): Alerter[] {
     ]
 }
 
-function determineSleepTimeInSeconds(): number {
+function determineDurationInSeconds(): number {
     return parseInt(process.env["SLEEP_DURATION_IN_SECONDS"] ? process.env["SLEEP_DURATION_IN_SECONDS"] : "10")
 }
 
@@ -44,6 +44,6 @@ setUp()
 
 const suppliers = generateSuppliers()
 const alerters = generateAlerters()
-const sleepTimeInSeconds = determineSleepTimeInSeconds()
+const sleepDurationInSeconds = determineDurationInSeconds()
 
-new App(suppliers, alerters, sleepTimeInSeconds).start().then()
+new App(suppliers, alerters, sleepDurationInSeconds).start().then()
